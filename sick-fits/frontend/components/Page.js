@@ -48,6 +48,10 @@ injectGlobal`
     font-size: 1.5rem;
     line-height: 2;
   }
+  a {
+    text-decoration: none;
+    color: ${theme.black}
+  }
 `;
 
 class Page extends Component {
