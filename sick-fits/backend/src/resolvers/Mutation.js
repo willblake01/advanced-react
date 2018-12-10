@@ -105,14 +105,13 @@ const Mutations = {
       where: { email: args.email },
       data: { resetToken, resetTokenExpiry },
     });
-    console.log(res);
     return { message: 'Thanks!' };
     // 3. Email them that reset token
 
   },
   async resetPassword(parent, args, ctx, info) {
     // 1. Check if passwords match
-    if(args.password !== args.confirmPassword) {
+    if (args.password !== args.confirmPassword) {
       throw new Error('Your passowrds don\'t match 😖');
     }
     // 2. Check if it's a legit reset token
@@ -123,7 +122,7 @@ const Mutations = {
         resetTokenExpiry_gte: Date.now() + 3600000,
       },
     });
-    if(!user) {
+    if (!user) {
       throw new Error('This token is either invalid or expired!');
     }
     // 4. Hash their new password
@@ -136,15 +135,14 @@ const Mutations = {
         resetToken: null,
         resetTokenExpiry: null,
       }
-    })
+    });
     // 6. Generate JWT
-    const token = jwt.sign({ userId: updatedUser.id },
-    process.env.APP_SECRET);
+    const token = jwt.sign({ userId: updatedUser.id }, process.env.APP_SECRET);
     // 7. Set the JWT cookie
     ctx.response.cookie('token', token, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 365
-    })
+      maxAge: 1000 * 60 * 60 * 24 * 365,
+    });
     // 8. Return the new user
     return updatedUser;
   },
