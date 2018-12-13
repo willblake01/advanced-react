@@ -34,7 +34,6 @@ class CreateItem extends Component {
     largeImage: '',
     price: 0,
   };
-
   handleChange = e => {
     const { name, type, value } = e.target;
     const val = type === 'number' ? parseFloat(value) : value;
@@ -72,7 +71,8 @@ class CreateItem extends Component {
             pathname: '/item',
             query: { id: res.data.createItem.id },
           })
-        }}>
+        }}
+        >
         <Error error={error} />
         <fieldset disabled={loading} aria-busy={loading}>
             <label htmlFor='file'>
