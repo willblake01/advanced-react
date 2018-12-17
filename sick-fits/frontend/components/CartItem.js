@@ -19,7 +19,15 @@ const CartItemStyles = styled.li`
   }
 `;
 
-const CartItem = ({ cartItem }) => (
+const CartItem = ({ cartItem }) => {
+  // First check if that item exists
+  if(!cartItem.item) return (
+    <CartItemStyles>
+      <p>This item has been removed</p>
+      <RemoveFromCart id={cartItem.id} />
+    </CartItemStyles>
+  );
+  return (
   <CartItemStyles>
     <img src={cartItem.item.image} width='100' alt={cartItem.item.title} />
     <div className='cart-item-details'>
@@ -32,7 +40,7 @@ const CartItem = ({ cartItem }) => (
     </div>
     <RemoveFromCart id={cartItem.id} />
   </CartItemStyles>
-)
+)};
 
 CartItem.propTypes = {
   cartItem: PropTypes.object.isRequired,
